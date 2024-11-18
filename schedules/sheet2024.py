@@ -5,7 +5,7 @@ import time
 # Setup Google Sheets API credentials
 def setup_google_sheets():
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    creds = ServiceAccountCredentials.from_json_keyfile_name('Credentials/dh-sheets-cd85d22bf527.json', scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_name('schedules/Credentials/dh-sheets-cd85d22bf527.json', scope)
     client = gspread.authorize(creds)
     return client
 
@@ -68,7 +68,7 @@ def get_schedules(names=None, days_to_fetch=None, sleep_time=5):
     results = {}
     
     # Open the output file in write mode
-    with open("schedules.txt", "w") as file:
+    with open("schedules/schedules.txt", "w") as file:
         for name in names:
             schedule = get_schedule(name.strip(), sheet, name_cells, days_to_fetch)
             results[name] = schedule
