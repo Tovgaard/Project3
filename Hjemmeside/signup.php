@@ -26,25 +26,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Forbered og bind
     $stmt = $conn->prepare("INSERT INTO Personer (navn, tlfnummer, discNavn, email, primPlatform, ppSubscribers) VALUES (?, ?, ?, ?, ?, ?)");
+    if ($stmt === false) {
+        die("Prepare failed: " . $conn->error);
+    }
     $stmt->bind_param("sssssi", $navn, $tlfnummer, $discNavn, $email, $primPlatform, $ppSubscribers);
 
     // Eksekver statement
     if ($stmt->execute()) {
+        echo "Data er blevet indsat i Personer tabellen!\n";
         $personID = $stmt->insert_id; // Få den indsatte PersonID
 
         // Hvis der er en ekstra platform, kan vi indsætte den i ØvrigePlatforme
         if (!empty($_POST['øvPlatforme'])) {
             $øvPlatforme = $_POST['øvPlatforme'];
             $stmt2 = $conn->prepare("INSERT INTO ØvrigePlatforme (PersonID, øvPlatforme) VALUES (?, ?)");
+            if ($stmt2 === false) {
+                die("Prepare failed: " . $conn->error);
+            }
             $stmt2->bind_param("is", $personID, $øvPlatforme);
-            $stmt2->execute();
+            if ($stmt2->execute()) {
+                echo "Data er blevet indsat i ØvrigePlatforme tabellen!\n";
+            } else {
+                echo "Fejl ved indsættelse af data i ØvrigePlatforme: " . $stmt2->error . "\n";
+            }
         }
 
         // Omdiriger til takkesiden
         header("Location: thankyou.html");
         exit();
     } else {
-        echo "Fejl ved indsættelse af data: " . $stmt->error;
+        echo "Fejl ved indsættelse af data: " . $stmt->error . "\n";
     }
 
     // Luk statement
