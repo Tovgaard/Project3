@@ -30,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Eksekver statement
     if ($stmt->execute()) {
-        echo "Data er blevet indsat i Personer tabellen!";
         $personID = $stmt->insert_id; // Få den indsatte PersonID
 
         // Hvis der er en ekstra platform, kan vi indsætte den i ØvrigePlatforme
@@ -39,8 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt2 = $conn->prepare("INSERT INTO ØvrigePlatforme (PersonID, øvPlatforme) VALUES (?, ?)");
             $stmt2->bind_param("is", $personID, $øvPlatforme);
             $stmt2->execute();
-            echo "Data er blevet indsat i ØvrigePlatforme tabellen!";
         }
+
+        // Omdiriger til takkesiden
+        header("Location: thankyou.html");
+        exit();
     } else {
         echo "Fejl ved indsættelse af data: " . $stmt->error;
     }
