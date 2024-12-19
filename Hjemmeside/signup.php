@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Hvis der er en ekstra platform, kan vi indsætte den i ØvrigePlatforme
         if (!empty($_POST['øvPlatforme'])) {
             $øvPlatforme = $_POST['øvPlatforme'];
-            $stmt2 = $conn->prepare("INSERT INTO ØvrigePlatforme (PersonID, øvPlatforme) VALUES (?, ?)");
+            $stmt2 = $conn->prepare("INSERT INTO ØvrigePlatforme (PersonID, øvPlatform) VALUES (?, ?)");
             if ($stmt2 === false) {
                 die("Prepare failed: " . $conn->error);
             }
