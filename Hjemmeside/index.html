@@ -36,36 +36,31 @@
     <p>Indtast dit navn for at fortsætte:</p>
     
     <div class="input-container">
-        <input type="text" id="name" placeholder="Navn">
-        <button onclick="submitName()">OK</button>
+        <input type="text" id="navn" placeholder="Navn">
+        <button type="submit" onclick="submitForm()">Ok</button>
     </div>
     <br>
-    <!-- SignUp href skal udfyldes med link til signup sidens url-->
+    <div id="welcome-message"></div>
 
-
-    <p></p>
     <script>
-        function submitName() {
-            var name = document.getElementById("name").value;
-
-            if (name) {
-                // Send AJAX-anmodning til PHP-fil for at hente data
-                fetch(`index.php?name=${name}`)
-                    .then(response => response.json()) // Forvent JSON-svar
+        function submitForm() {
+            const navn = document.getElementById('navn').value;
+            if (navn) {
+                fetch(`index.php?navn=${navn}`)
+                    .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            // Hvis navnet findes i databasen, vis velkomstbesked
-                            document.getElementById("welcome-message").innerHTML = `<h2>Hej, ${data.name}!</h2>`;
+                            window.location.href = `welcome.html?name=${data.navn}&discNavn=${data.discNavn}`;
                         } else {
-                            // Hvis navnet ikke findes
-                            document.getElementById("welcome-message").innerHTML = "<h2>Navnet blev ikke fundet i databasen.</h2>";
+                            document.getElementById('welcome-message').innerText = 'Fejl: Navn ikke fundet.';
                         }
                     })
                     .catch(error => {
-                        console.error("Fejl ved hentning af data:", error);
+                        console.error('Error:', error);
+                        document.getElementById('welcome-message').innerText = 'Fejl: Kunne ikke hente data.';
                     });
             } else {
-                document.getElementById("welcome-message").innerHTML = "<h2>Du skal indtaste et navn!</h2>";
+                document.getElementById('welcome-message').innerText = 'Fejl: Indtast et navn.';
             }
         }
     </script>

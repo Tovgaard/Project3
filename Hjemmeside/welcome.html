@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velkommen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="welcome-message"></h1>
+
+    <script>
+        // Hent URL-parametre
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        const discNavn = urlParams.get('discNavn');
+
+        // Vis velkomstbesked
+        if (name && discNavn) {
+            document.getElementById('welcome-message').innerText = `Hej, ${name}! Dit discNavn er ${discNavn}.`;
+        } else {
+            document.getElementById('welcome-message').innerText = 'Fejl: Manglende data.';
+        }
+    </script>
+</body>
+</html>
