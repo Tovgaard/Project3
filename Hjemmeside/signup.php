@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tlfnummer = $_POST['tlfnummer'];
     $discNavn = $_POST['discNavn'];
     $email = $_POST['email'];
-    $primPlatform = $_POST['primPlat'];
+    $primPlat = $_POST['primPlat'];
     $ppSubscribers = $_POST['ppSubscribers'];
 
     // Forbered og bind
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt === false) {
         die("Prepare failed: " . $conn->error);
     }
-    $stmt->bind_param("sssssi", $navn, $tlfnummer, $discNavn, $email, $primPlatform, $ppSubscribers);
+    $stmt->bind_param("sssssi", $navn, $tlfnummer, $discNavn, $email, $primPlat, $ppSubscribers);
 
     // Eksekver statement
     if ($stmt->execute()) {
