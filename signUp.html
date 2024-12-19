@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .input-container {
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<h1> Sign up here</h1>
+<body>
+    <form method="post" action="signup.php">
+        <div class="SignUp">
+            <input type="text" id="name" placeholder="Navn"> <br>
+            <input type="text" id="tlf" placeholder="Telefon nummer"> <br>
+            <input type="text" id="discName" placeholder="Discord Navn"> <br>
+            <input type="text" id="email" placeholder="email"> <br>
+            <input type="text" id="Primær platform" placeholder="Primær platform"> <br>
+            <input type="text" id="Platform subs" placeholder="Primær platform subscriber count"> <br>
+            <input type="text" id="Øvrige platforme" placeholder="Øvrige platforme">
+            <br><br>
+            <button onclick="signup()">Sign up</button>
+        </div>
+    </form>
+</body>
+<script> 
+    document.getElementById('SignUp').addEventListener('signup',function(event){
+        event.preventDefault();
+
+        const formData = new FormData(this);
+
+        fetch('signUp.php', {
+            method: 'POST',
+            body: formData  
+        })
+        .then(response => response.text())
+        .then(result => {
+                alert(result);  // Vis resultatet fra serveren
+                document.getElementById('dataForm').reset();  // Ryd formularen
+            })
+            .catch(error => console.error('Fejl ved sendning af data:', error));
+    });
+</script>
+</body>
+</html>

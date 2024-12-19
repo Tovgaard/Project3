@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indtast Dit Navn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .input-container {
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Velkommen til Projektet!</h1>
+    <p>Indtast dit navn for at fortsætte:</p>
+    
+    <div class="input-container">
+        <input type="text" id="name" placeholder="Navn">
+        <button onclick="submitName()">OK</button>
+    </div>
+    <br>
+    <!-- SignUp href skal udfyldes med link til signup sidens url-->
+
+
+    <p></p>
+    <script>
+        function submitName() {
+            var name = document.getElementById("name").value;
+
+            if (name) {
+                // Send AJAX-anmodning til PHP-fil for at hente data
+                fetch(`index.php?name=${name}`)
+                    .then(response => response.json()) // Forvent JSON-svar
+                    .then(data => {
+                        if (data.success) {
+                            // Hvis navnet findes i databasen, vis velkomstbesked
+                            document.getElementById("welcome-message").innerHTML = `<h2>Hej, ${data.name}!</h2>`;
+                        } else {
+                            // Hvis navnet ikke findes
+                            document.getElementById("welcome-message").innerHTML = "<h2>Navnet blev ikke fundet i databasen.</h2>";
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Fejl ved hentning af data:", error);
+                    });
+            } else {
+                document.getElementById("welcome-message").innerHTML = "<h2>Du skal indtaste et navn!</h2>";
+            }
+        }
+    </script>
+</body>
+</html>
