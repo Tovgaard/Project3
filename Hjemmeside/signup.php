@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ppSubscribers = $_POST['ppSubscribers'];
 
     // Forbered og bind
-    $stmt = $conn->prepare("INSERT INTO Personer (navn, tlfnummer, discNavn, email, primPlatform, ppSubscribers) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO Personer (navn, tlfnummer, discNavn, email, primPlat, ppSubscribers) VALUES (?, ?, ?, ?, ?, ?)");
     if ($stmt === false) {
         die("Prepare failed: " . $conn->error);
     }
