@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tlfnummer = $_POST['tlfnummer'];
     $discNavn = $_POST['discNavn'];
     $email = $_POST['email'];
-    $primPlatform = $_POST['primPlatform'];
+    $primPlatform = $_POST['primPlat'];
     $ppSubscribers = $_POST['ppSubscribers'];
 
     // Forbered og bind
