@@ -51,5 +51,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Luk forbindelsen
 $conn->close();
-
 ?>
